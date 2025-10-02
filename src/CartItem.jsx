@@ -10,20 +10,15 @@ const CartItem = ({ onContinueShopping }) => {
     // Calculate total amount for all products in the cart
     const calculateTotalAmount = () => {
         let total = 0;
-        cart.forEach((item) => {
-            if (item.selected) {
-                total += parseFloat(item.cost.substring(1)) * item.quantity;
-            }
+        cart.forEach(item => {
+            const price = parseFloat(item.cost.substring(1)); // remove '$' and convert
+            total += price * item.quantity;
         });
-        return total;
+        return total.toFixed(2); // keep 2 decimal places
     };
 
     const handleContinueShopping = (e) => {
-        onContinueShopping(e);
-    };
-
-    const handleCheckoutShopping = (e) => {
-        alert('Functionality to be added for future reference');
+        onContinueShopping(e); // call the parent-provided function
     };
 
     const handleIncrement = (item) => {
@@ -33,20 +28,25 @@ const CartItem = ({ onContinueShopping }) => {
     const handleDecrement = (item) => {
         if (item.quantity > 1) {
             dispatch(updateQuantity({ name: item.name, quantity: item.quantity - 1 }));
-        } else if (item.quantity === 0) {
-            dispatch(removeItem({ name: item.name }));
+        } else {
+            // remove item completely if quantity would drop to 0
+            dispatch(removeItem(item.name));
         }
     };
 
     const handleRemove = (item) => {
-        dispatch(removeItem({ name: item.name }));
+        dispatch(removeItem(item.name));
     };
 
     // Calculate total cost based on quantity for an item
     const calculateTotalCost = (item) => {
-        let subtotal = parseFloat(item.cost.substring(1)) * item.quantity;
-        return subtotal;
+        const price = parseFloat(item.cost.substring(1));
+        return (price * item.quantity).toFixed(2);
     };
+
+    const handleCheckoutShopping = (e) => {
+        alert('Functionality to be added for future reference');
+    };    
 
     return (
         <div className="cart-container">
@@ -80,5 +80,3 @@ const CartItem = ({ onContinueShopping }) => {
 };
 
 export default CartItem;
-
-
