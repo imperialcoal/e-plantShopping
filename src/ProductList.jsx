@@ -310,11 +310,10 @@ function ProductList({ onHomeClick }) {
                                 <rect width="156" height="156" fill="none"></rect>
                                 <circle cx="80" cy="216" r="12"></circle>
                                 <circle cx="184" cy="216" r="12"></circle>
+                                {/* Show item count in cart */}
                                 <path d="M42.3,72H221.7l-26.4,92.4A15.9,15.9,0,0,1,179.9,176H84.1a15.9,15.9,0,0,1-15.4-11.6L32.5,37.8A8,8,0,0,0,24.8,32H8" fill="none" stroke="#faf9f9" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" id="mainIconPathAttribute"></path>
                             </svg>
-                            {/* Show item count badge */}
-                            {calculateTotalQuantity() > 0 && (
-                                <span className="cart-count">{calculateTotalQuantity()}</span>)}
+                            <span className="cart_quantity_count">{calculateTotalQuantity()}</span>
                         </h1>
                     </a>
                     </div>
@@ -324,8 +323,8 @@ function ProductList({ onHomeClick }) {
                 <div className="product-grid">
                     {plantsArray.map((category, index) => ( // Loop through each category in plantsArray
                         <div key={index}> {/* Unique key for each category div */}
-                            <h1 className='plant_heading'>
-                                <div className='plantname_heading'>{category.category}</div> {/* Display the category name */}
+                            <h1 className="plantname_heading">
+                                <div className="plant_heading">{category.category}</div> {/* Display the category name */}
                             </h1>
                             <div className="product-list"> {/* Container for the list of plant cards */}
                                 {category.plants.map((plant, plantIndex) => ( // Loop through each plant in the current category
